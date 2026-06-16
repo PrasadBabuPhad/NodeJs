@@ -17,10 +17,10 @@ app.get("/book",(req,res)=>{
 })
 
 
-app.post("/book",(req,res)=>{
-    console.log("req.body");
-    BookStore.push(req.body);
-    res.send("Data Saved Successfully");
+app.get("/book/:id",(req,res)=>{
+    const id=parseInt(req.params.id);
+    const Book=BookStore.find(info=>info.id===id);
+    res.send(Book);
 })
 
 
@@ -29,12 +29,7 @@ app.patch("/book",(req,res)=>{
 })
 
 //
-app.listen(4000, ()=>{
+app.listen(3000, ()=>{
     console.log("Listening at port 4000");
 
 })
-
-
-
-
-
