@@ -1,5 +1,9 @@
 const express=require('express');
 const app=express();
+const {Auth}=require("./middleware/auth")
+
+//CRUD :CREate Read Update Delete
+//Database :Array
 
 app.use(express.json());
 const FoodMenu=[
@@ -13,35 +17,21 @@ const FoodMenu=[
 ];
 const AddToCart=[];
 
+
+app.use("/admin",Auth)
+
 app.get("/food",(req,res)=>{
     res.status(200).send(FoodMenu);
 })
 
 app.post("/admin",(req,res)=>{
-    //Add the item into food menu
-    //Authentication karna padega ki kya ye admin hai
-
-    const token="ABCDEF"
-    const Access=token==="ABCDEF"?1:0;
-
-    if(Access){
+    
         FoodMenu.push(req.body);
         res.status(201).send("Items Can be added");
-    }
-    else{
-        res.status(202).send("Items Cant be added");
-    }
 
 })
 
 app.delete("/admin/:id",(req,res)=>{
-    //Add the item into food menu
-    //Authentication karna padega ki kya ye admin hai
-
-    const token="ABCDEF"
-    const Access=token==="ABCDEF"?1:0;
-
-    if(Access){
         const id=parseInt(req.params.id);
         const index=FoodMenu.findIndex(item=> item.id===id);
         if(index===-1){
@@ -51,20 +41,11 @@ app.delete("/admin/:id",(req,res)=>{
             FoodMenu.splice(index,1);
             res.send("Succesfully Deleted");
         }
-    }
-    else{
-        res.status(403).send("No Permission");
-    }
+    
 })
 
 app.patch("/admin",(req,res)=>{
-    //Add the item into food menu
-    //Authentication karna padega ki kya ye admin hai
-
-    const token="ABCDEF"
-    const Access=token==="ABCDEF"?1:0;
-
-    if(Access){
+    
         const id=req.body.id;
 
         const fooddata=FoodMenu.find(item=> item.id===id)
@@ -82,10 +63,7 @@ app.patch("/admin",(req,res)=>{
         else{
             res.send("Item not exist")
         }
-    }
-    else{
-        res.status(403).send("No Permission")
-    }
+        
 })
 
 //localhost:3000/admin
