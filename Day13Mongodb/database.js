@@ -2,7 +2,7 @@ const {MongoClient}= require('mongodb');
 
 // @ == %40
 // @ == hexadecimal: 0x40
-const url="mongodb+srv://lucy:Prasad%40123@codingadda.xifhqtg.mongodb.net/";
+const url="mongodb+srv://lucy:*********@codingadda.xifhqtg.mongodb.net/";
 
 const client= new MongoClient(url);
 
