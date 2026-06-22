@@ -49,6 +49,7 @@ backend/node_modules/
 # =========================
 /data/db
 *.db
+mongodb+srv://lucy:Prasad%40123@codingadda.xifhqtg.mongodb.net/
 
 # =========================
 # OS files
