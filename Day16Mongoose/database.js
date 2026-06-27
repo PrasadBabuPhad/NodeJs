@@ -3,8 +3,8 @@ const {Schema} =mongoose;
 
 
 async function main(){
-    await mongoose.connect("mongodb+srv://lucy:Prasad%40123@codingadda.xifhqtg.mongodb.net/Bookstore");
-                            //mongodb+srv://lucy:<db_password>@codingadda.xifhqtg.mongodb.net/
+    await mongoose.connect("e");
+                            
 
     // const userSchema= new Schema({
     //     name:String,
