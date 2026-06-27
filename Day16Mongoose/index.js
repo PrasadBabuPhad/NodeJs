@@ -14,7 +14,10 @@ app.get("/info", async (req,res)=>{
 })
 
 
-//app.post()
+app.post("/user",async(req,res)=>{
+    const d={"rohit"};
+    res.send(d);
+})
 
 
 main()
