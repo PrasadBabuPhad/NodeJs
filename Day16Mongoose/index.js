@@ -14,9 +14,29 @@ app.get("/info", async (req,res)=>{
 })
 
 
-app.post("/user",async(req,res)=>{
-    const d={"rohit"};
-    res.send(d);
+app.post("/info",async(req,res)=>{
+    // const ans= new user(req.body);
+    // await ans.save();
+    try{
+        await user.create(req.body);
+        res.send("Successfully Updated");
+    }
+    catch(err){
+        res.status(500).send(err);
+    }
+    
+})
+
+
+app.delete("/info",async(req,res)=>{
+    await user.deleteOne({name:"Sunny"});
+    res.send("Deleted");
+})
+
+
+app.put("/info",async(req,res)=>{
+    const result=await user.updateOne({name:"Surabhi"},{age:22,city:"Pune"});
+    res.send("Updated");
 })
 
 
