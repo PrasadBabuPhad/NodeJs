@@ -1,6 +1,6 @@
 const  { GoogleGenAI }=  require("@google/genai");
 
-const ai = new GoogleGenAI({apiKey:"AIzaSyCVd0JV3slGBOZ-9FmfF7XPuw13CpMTLiY"});
+const ai = new GoogleGenAI({apiKey:""});
 
 
 async function main(msg){
