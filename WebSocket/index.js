@@ -2,6 +2,7 @@ const express=require('express');
 const app=express();
 const  {Server}=require("socket.io");
 const http =require('http');
+const path=require('path');
 const { Socket } = require('dgram');
 
 // app.get("/",(req,res)=>{
@@ -16,9 +17,18 @@ const { Socket } = require('dgram');
 const server=http.createServer(app);
 const io= new Server(server);
 
+app.get('/', (req,res)=>{
+    res.sendFile(path.join(__dirname,'index.html'))
+});
+
+
 io.on("connection",(socket)=>{
 
     socket.on('message',(data)=>{
+        io.emit('new-message',data);
+    })
+
+    socket.on('rampage',(data)=>{
         io.emit('new-message',data);
     })
 
