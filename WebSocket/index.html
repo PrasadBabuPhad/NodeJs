@@ -7,7 +7,9 @@
 </head>
 <body>
     <h1>CHAT APP</h1>
-    <div id="messageDisplay" style="height: 30vh; width:50vw; background-color:rgb(223, 91, 91) ;margin-bottom: 20px; overflow-y: auto; padding:10px;"></div>
+    <input type="text" placeholder="Enter the room number" id="roomNumber">
+    <button onclick="joinRoom()">Join</button>
+    <div id="messageDisplay" style="height: 30vh; width:50vw; background-color:rgb(223, 91, 91) ;margin-bottom: 20px; overflow-y: auto; padding:10px; margin-top: 20px;"></div>
     <input  type="text" placeholder="type your msg here" id="message" style="height: 20vh; width:44vw; background-color:rgb(243, 244, 241) ;margin-bottom: 20px;">
     <button onclick="sendMessage()">Send</button>
 
@@ -21,14 +23,41 @@
 
         const messageBox=document.getElementById('messageDisplay');
         const messageInput =document.getElementById('message');
+        const roomNumber=document.getElementById('roomNumber');
+        let roomId=null;
+
+        // function sendMessage(){
+        //     const msg=messageInput.value;
+        //     socket.emit('message',msg);
+        //     const element=document.createElement('div');
+        //     element.textContent=msg;
+        //     element.style.textAlign='right';
+        //     messageBox.appendChild(element);
+        //     messageInput.value='';
+        // }
 
         function sendMessage(){
             const msg=messageInput.value;
-            socket.emit('message');
+            socket.emit('message',{room:roomId,msg});
+            const element=document.createElement('div');
+            element.textContent=msg;
+            element.style.textAlign='right';
+            messageBox.appendChild(element);
+            messageInput.value='';
         }
 
+        function joinRoom(){
+            const room=roomNumber.value;
+            roomId=room;
+            socket.emit('join-room',room);
+        }
+
+
+
         socket.on('new-message',(data)=>{
-            
+            const element=document.createElement('div');
+            element.textContent=data;
+            messageBox.appendChild(element);
         })
 
 

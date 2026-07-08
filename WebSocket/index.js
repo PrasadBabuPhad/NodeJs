@@ -24,13 +24,25 @@ app.get('/', (req,res)=>{
 
 io.on("connection",(socket)=>{
 
-    socket.on('message',(data)=>{
-        io.emit('new-message',data);
+    console.log("User connected:", socket.id);
+
+    // socket.on('message',(data)=>{
+    //     socket.broadcast.emit('new-message',data);
+    // })
+
+    socket.on('message',({room,msg})=>{
+        socket.to(room).emit('new-message',msg);
     })
 
-    socket.on('rampage',(data)=>{
-        io.emit('new-message',data);
+
+    // socket.on('rampage',(data)=>{
+    //     io.emit('new-message',data);
+    // })
+
+    socket.on('join-room',(room)=>{
+        socket.join(room);
     })
+
 
     socket.on("disconnect",()=>{
         console.log("Disconnected from Server")
