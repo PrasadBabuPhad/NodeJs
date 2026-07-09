@@ -20,11 +20,11 @@ socket.on("connect", () => {
 
 // Twilio ICE servers configuration
 // const iceServers = [
-//   { urls: 'stun:global.stun.twilio.com:3478' },
+//   { urls: '' },
 //   { 
-//     urls: 'turn:global.turn.twilio.com:3478?transport=udp',
-//     username: '9c62ac6db56ec83729d37f40bad08e21ac43f45d82e5b1ce9448298507b56ff0',  
-//     credential: 'R9cxsrRCXGMNUCCMxRrg6J+FsrTovXGIfYXTQlczGxI=' 
+//     urls: '',
+//     username: '',  
+//     credential: '' 
 //   }
 // ];
 let iceServers = [];
