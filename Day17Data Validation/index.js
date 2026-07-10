@@ -19,10 +19,11 @@ app.get("/info", async (req,res)=>{
 
 app.get("/user/:id",async(req,res)=>{
     try{
-        const result=await user.findById(req.params.id):
+        const result=await user.findById(req.params.id)
+
     }
     catch(err){
-
+        res.send("Error"+err.message);
     }
 })
 
@@ -40,15 +41,26 @@ app.post("/register",async(req,res)=>{
 })
 
 
-app.delete("/info",async(req,res)=>{
-    await user.deleteOne({name:"Sunny"});
-    res.send("Deleted");
+app.delete("/user/:id",async(req,res)=>{
+    try{
+        await user.findByIdAndDelete(req.params.id);
+        res.send("Deleted successfully")
+    }
+    catch(err){
+        res.send("Error"+err.message);
+    }
 })
 
 
-app.put("/info",async(req,res)=>{
-    const result=await user.updateOne({name:"Surabhi"},{age:22,city:"Pune"});
-    res.send("Updated");
+app.patch("/user",async(req,res)=>{
+    try{
+        const {_id,...update}=req.body;
+        await user.findByIdAndUpdate(_id,update);
+        res.send("Update successfully");6
+    }
+    catch(err){
+        res.send("Error "+err.message);
+    }
 })
 
 
@@ -63,3 +75,5 @@ main()
     // console.log(result);
 })
 .catch((err)=>console.log(err));
+
+
