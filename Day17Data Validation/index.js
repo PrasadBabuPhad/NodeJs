@@ -31,6 +31,12 @@ app.get("/user/:id",async(req,res)=>{
 app.post("/register",async(req,res)=>{
 
     try{
+
+        //re.body ke andar firstname present ho na hai
+        const mandatoryField=["firstName","emailId","age"]
+
+        const IsAllowed =mandatoryField.every((k)=>Object.keys(req.body).includes(k));
+
         await user.create(req.body);
         res.send("Registered Successfully");
     }
@@ -55,8 +61,8 @@ app.delete("/user/:id",async(req,res)=>{
 app.patch("/user",async(req,res)=>{
     try{
         const {_id,...update}=req.body;
-        await user.findByIdAndUpdate(_id,update);
-        res.send("Update successfully");6
+        await user.findByIdAndUpdate(_id,update,{"runValidators":true});
+        res.send("Update successfully");
     }
     catch(err){
         res.send("Error "+err.message);

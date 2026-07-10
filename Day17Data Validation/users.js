@@ -12,7 +12,15 @@ const userSchema= new Schema({
    lastName:{
       type:String
    },
-   gender:{type:String},
+   gender:{
+      type:String,
+      // tisgosndfg if user sent's this
+      //enum:["male","female","others"]
+      validate(value){
+         if(!["male","female","others"].includes(value))
+            throw new Error("Invalid Gender")
+      }
+   },
    age:
    {  type:Number,
       min:14,
@@ -22,6 +30,8 @@ const userSchema= new Schema({
       type:String,
       required:true,
       unique:true,
+      trim:true,
+      lowercase:true,
    },
    password:{
       type:String
@@ -30,7 +40,7 @@ const userSchema= new Schema({
       type:String,
       default:"This is the default Photo"
    },
-})
+},{timestamps:true})
 
 const User=mongoose.model("user",userSchema);
 
