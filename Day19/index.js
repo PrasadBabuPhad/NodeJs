@@ -3,6 +3,7 @@ const app=express();
 const main=require("./database.js");
 const user=require("./users.js");
 const validUser=require("./validateUser.js")
+const bcrypt=require("bcrypt");
 
 app.use(express.json());
 
@@ -32,6 +33,8 @@ app.post("/register",async(req,res)=>{
 
     try{    
         validUser(req.body);
+        //conversting paasord into the hashing
+        req.body.password=await bcrypt.hash(req.body.password,10);
 
         await user.create(req.body);
         res.send("Registered Successfully");
@@ -40,6 +43,25 @@ app.post("/register",async(req,res)=>{
         res.status(500).send(err.message);
     }
     
+})
+
+app.post("/login",async(req,res)=>{
+    try{
+        //cheso ko validate karna
+        const people=user.findById(req.body._id);
+
+        if(!(req.body.emailId===people.emailId))
+            throw new Error("Invalid credentials");
+        const isAllowed=await bcrypt.compare(req.body.password,people.password);
+
+        if(!IsAllowed)
+            throw new Error("Invalid credentials");
+        res.send("Login Successfully");
+
+    }
+    catch(err){
+        res.send(500).send(err.message);
+    }
 })
 
 
